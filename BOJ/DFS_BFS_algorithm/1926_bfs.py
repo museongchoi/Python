@@ -1,15 +1,11 @@
 # 그림
-#form collections import deque
-
 n, m = map(int, input().split())
 a = [list(map(int, input().split())) for _ in range(n)]
 
 print(n, m)
 print(a)
 
-
-#-----------
-
+# 그림
 # from collections import deque
 # def bfs(x, y):
 #     a[x][y] = 0
