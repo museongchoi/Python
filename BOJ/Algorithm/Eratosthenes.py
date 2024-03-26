@@ -1,3 +1,4 @@
+# 소수 구하는 알고리즘
 n=1000
 # a 는 0, 1 자리 False, 나머지는 True
 a = [False,False] + [True]*(n-1)
