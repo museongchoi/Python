@@ -43,4 +43,3 @@ def find(x):
     return dp[x]
 
 print(find(N))
-

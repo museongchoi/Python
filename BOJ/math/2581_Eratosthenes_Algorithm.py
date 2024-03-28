@@ -1,6 +1,6 @@
+# 소수
 M = int(input())
 N = int(input())
-
 def get_prime(n):
     vi = [False, False] + [True]*(n-1)
     ans = []
