@@ -1,3 +1,4 @@
+# 소수 구하기
 M, N = map(int, input().split())
 def get_prime(n):
     # 16 개 생성
