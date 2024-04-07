@@ -1,13 +1,33 @@
+# 최소, 최대
+# 방법 2가 가장 빠름
+
+# 방법 5
+import sys
 N = int(input())
-m_list = list(map(int, input().split()))
+mlist = list(map(int, sys.stdin.readline().split()))
 minn = 1000000
 maxn = -1000000
-for i in m_list:
-    if int(i) < minn:
+for i in mlist:
+    if minn > i:
         minn = i
-    if int(i) > maxn:
+    if maxn < i:
         maxn = i
 print(minn, maxn)
+# sort 사용
+#mlist.sort()
+#print(mlist[0], mlist[-1])
+
+# 방법 4
+# N = int(input())
+# m_list = list(map(int, input().split()))
+# minn = 1000000
+# maxn = -1000000
+# for i in m_list:
+#     if int(i) < minn:
+#         minn = i
+#     if int(i) > maxn:
+#         maxn = i
+# print(minn, maxn)
 
 # 방법1. sort, slicing 사용
 # N = int(input())
