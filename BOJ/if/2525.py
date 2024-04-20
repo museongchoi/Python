@@ -5,15 +5,13 @@ a, b = map(int, input().split())
 c = int(input())
 
 tmp = b + c
-
+# b + c 가 60 이상이면 a 증가.
+# a에 더하는 값은 60으로 나는 몫
 if tmp >= 60:
-    # tmp%60 나머지가 분, 몫은 시간에 더한다.
     tb = tmp%60
     a += tmp//60
     if a >= 24:
-        a =
-        print(a, tb)
-    else:
-        print(a, tb)
+        a -= 24
+    print(a, tb)
 else:
     print(a, tmp)
