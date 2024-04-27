@@ -3,6 +3,7 @@ M, N = map(int, input().split())
 def get_prime(n):
     # 16 개 생성
     vi = [False, False] + [True] * (n - 1)
+    # print(vi)
     ans = []
     # 2부터 N+1 까지 순회
     for i in range(2, n+1):
