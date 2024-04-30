@@ -2,10 +2,11 @@
 # a,b,c,d,e,f 를 방정식에 대입하여 만족하는 x, y 값을 출력
 # 방정식 : ax + by = c / dx + ey = f
 # -999 <= x, y <= 999
-# 방법 3
+# 방법 3 연릭방정식 풀이
 import sys
 a, b, c, d, e, f = map(int, sys.stdin.readline().split())
 
+print((c*e-b*f)//(a*e-b*d), (a*f-d*c)//(a*e-b*d))
 
 # 방법 2 - 브루트포스 알고리즘
 # import sys
