@@ -5,8 +5,8 @@ import sys
 input = sys.stdin.readline
 numbers = [1,3,2,6,-1,4,1,8,2]
 n = len(numbers)
-k = 5
-window = sum(numbers[:k])
+k = 5 # 묶음
+window = sum(numbers[:k]) # 초기 묶음 합
 ans = window
 
 for i in range(k, n):
