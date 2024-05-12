@@ -8,3 +8,6 @@ test_num = list(map(int, input().split()))
 b, c = map
 # 총 감독관은 최소 1명이 각 시험장에 있어야 한다.
 # 각 시험장 마다 있는 감독관 최소 수를 구하라.
+
+for test in test_num:
+    if test//b 
