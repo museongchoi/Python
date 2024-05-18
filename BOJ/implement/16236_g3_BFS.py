@@ -33,57 +33,54 @@ dy = [0, 1, 0, -1]
 
 # 아기 상어 조건에 맞는 물고기 최단 거리 먹이 구하기
 def BFS(x, y):
-    cand = [0, 0, 500]    # return shark_x, shark_y, cnt
-    w_visited = [[False] * n for _ in range(n)] # 방문 체크
+    w_visited_move = [[0] * n for _ in range(n)]  # 0 일때는 방문하지 않은 곳
+    food_list = []    # return move, x, y
     dq = deque()
-    dq.append([x, y, 0])
-    w_visited[x][y] = 1 # 처음 방문 체크
-    print(w_map[x][y])
+    dq.append([x, y])
+    w_visited_move[x][y] = 1 # 방문체크를 할겸 거리 갱신
+
     while dq:
-        x, y, move = dq.popleft()
-        print(x, y, move)
+        i, j = dq.popleft()
         for k in range(4):
-            nx = x + dx[k]
-            ny = y + dy[k]
-            if 0<=nx<n and 0<=ny<n and w_visited[nx][ny] == False:
-
-                if w_map[x][y] > w_map[nx][ny]: # 상어가 물고기보다 클때
-                    w_visited[nx][ny] = True
+            nx = i + dx[k]
+            ny = j + dy[k]
+            # nx, ny 범위 확인, 방문하지 않았을때
+            if 0 <= nx <n and 0 <= ny <n and w_visited_move[nx][ny] == 0:
+                if w_map[x][y] > w_map[nx][ny] and w_map[nx][ny] != 0: # 상어가 물고기보다 클 때, 물고기를 먹을 수 있다.
+                    w_visited_move[nx][ny] = w_visited_move[i][j] + 1
                     # 현재 상어가 먹을 수 있는 물고기이므로 최단 거리를 구해야한다. cand[2]에 가장 작은 최단 거리 추가
-                    if cand[2] > move + 1:
-                        cand[0] = nx
-                        cand[1] = ny
-                        cand[2] = move + 1
-                    if cand[2] == move + 1:
-                        if cand[1] > ny:
-                            cand[0] = nx
-                            cand[1] = ny
-                elif w_map[nx][ny] == 0:    # 움직이는 곳이 비어 있을때.
-                    w_visited[nx][ny] = True
-                    dq.append([nx, ny, move + 1])
+                    food_list.append((w_visited_move[nx][ny] - 1, nx, ny))
                 elif w_map[x][y] == w_map[nx][ny]:  # 상어와 물고기가 크기가 같을때, 움직이기만 한다.
-                    w_visited[nx][ny] = True
-                    dq.append([nx, ny, move + 1])
+                    w_visited_move[nx][ny] = w_visited_move[i][j] + 1
+                    dq.append([nx, ny])
+                elif w_map[nx][ny] == 0:    # 움직이는 곳이 비어 있을때.
+                    w_visited_move[nx][ny] = w_visited_move[i][j] + 1
+                    dq.append([nx, ny])
 
-    print(cand)
-    return cand
+    return sorted(food_list, key=lambda x : (x[0], x[1], x[2]))
+
+# 상어의 크기를 현재 상어 위치로 갱신
+# BFS 실행 방문
+# 현재 위치 방문 체크 후 dq에 x,y,move 값 넣고
 
 # x, y : 상어 좌표, cnt : 걸린 시간, s_size : 상어 크기, s_cnt : 잡아먹은 물고기 수(상어 레벨업 확인)
 s_size = [2, 0] # s_size[0] : 상어 사이즈, s_size[1] : 상어가 물고기를 먹은 횟수
 cnt = 0 # 엄마 상어를 부르는데 걸린 시간
 while True:
     w_map[shark_x][shark_y] = s_size[0] # 상어 현재 위치 크기로 갱신
-    ans = BFS(shark_x, shark_y)    # cand = shark_x, shark_y, s_move
+    ans = deque(BFS(shark_x, shark_y))    # cand = shark_x, shark_y, s_move
 
     # 반환 값이 없으면 먹이가 없다는 것, cand[2] move 가 0이면 움직이지 못한 것 먹이가 없는 것이므로 break로 변경 가능할지도?
     if not ans:
         break
 
     s_size[1] += 1  # BFS 탐색을 했다면 먹이를 먹은 것이므로 1 증가.
-    cnt += ans[2] # 상어가 움직인 거리(시간)를 더해준다.
-    w_map[shark_x][shark_y] = 0 # 현재 상어가 물고기를 먹은 위치를 0으로. whlie문으로 반복 시 상어의 현재 위치가 되어 상어 크기로 다시 갱신 된다.
-    shark_x = ans[0]
-    shark_y = ans[1]
+    move, xx, yy = ans.popleft()
+    cnt += move # 상어가 움직인 거리(시간)를 더해준다.
+    # print('cnt',cnt)
+    # print('move', move)
+    w_map[shark_x][shark_y] = 0  # 현재 상어가 물고기를 먹은 위치를 0으로. whlie문으로 반복 시 상어의 현재 위치가 되어 상어 크기로 다시 갱신 된다.
+    shark_x, shark_y = xx, yy
 
     # 상어가 먹이를 먹은 횟수와 현재 상어 크기가 같으면, 상어 크기 갱신 후 먹은 횟수 리셋
     if s_size[0] == s_size[1]:
@@ -91,5 +88,4 @@ while True:
         s_size[1] = 0
 
 print(cnt)
-
 
