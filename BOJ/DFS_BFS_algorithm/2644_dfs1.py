@@ -1,3 +1,4 @@
+# 촌수 계산
 n = int(input())
 a, b = map(int, input().split())
 m = int(input())
