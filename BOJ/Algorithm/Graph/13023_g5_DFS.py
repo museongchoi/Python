@@ -17,8 +17,7 @@ def DFS(a, depth):
     if depth >= 4:
         ans = True
         return
-    if ans:
-        return
+
     # 현재 위치에 이어져 있는 노드 즉, 친구를 확인한다.
     # 방문 하지 않았다면, 연결 노드와 깊이 + 1 를 DFS 입력값으로 주고 재귀 실행.
     for b in p_num[a]:
